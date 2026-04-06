@@ -29,20 +29,8 @@ p {
   display: inline-block;
 }
 
-nav {
-  position: fixed;
-  width: 100%;
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  z-index: 2;
-}
 
-nav .nav-links {
-  display: flex;
-  gap: 0.75rem;
-}
+
 
 
 .hero {
@@ -62,7 +50,7 @@ nav .nav-links {
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 2rem;
+  
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
