@@ -9,7 +9,7 @@
 body {
   font-family: "Manrope", sans-serif;
   background-color: #000;
-  color: #fff;
+  color: #fff; 
 }
 
 h1 {
@@ -37,6 +37,7 @@ p {
   position: relative;
   width: 100%;
   height: 100svh;
+  padding:2rem;
  
   overflow: hidden;
 }
