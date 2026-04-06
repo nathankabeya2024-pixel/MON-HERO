@@ -45,6 +45,7 @@ nav .nav-links {
 }
 .hero canvas {
   border-radius: 20px;
+    overflow: hidden;
 }
 .hero {
   position: relative;
