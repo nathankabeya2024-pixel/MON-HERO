@@ -17,25 +17,22 @@ const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-/* ── Utilise les dimensions du conteneur, pas de la fenêtre ── */
-function getSize() {
-  return {
-    w: container.clientWidth,
-    h: container.clientHeight,
-  };
-}
+/* ── Dimensions du conteneur .hero, pas de la fenêtre ── */
+function W() { return container.clientWidth; }
+function H() { return container.clientHeight; }
 
-const { w, h } = getSize();
-renderer.setSize(w, h);
+renderer.setSize(W(), H());
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-/* ── Canvas en cover absolu dans .hero ── */
-renderer.domElement.style.position = "absolute";
-renderer.domElement.style.top = "0";
-renderer.domElement.style.left = "0";
-renderer.domElement.style.width = "100%";
-renderer.domElement.style.height = "100%";
+/* ── Canvas couvre exactement le .hero ── */
+const cvs = renderer.domElement;
+cvs.style.position = "absolute";
+cvs.style.top      = "0";
+cvs.style.left     = "0";
+cvs.style.width    = "100%";
+cvs.style.height   = "100%";
+cvs.style.display  = "block";
 
 const mouse = { x: 0.5, y: 0.5 };
 const targetMouse = { x: 0.5, y: 0.5 };
@@ -44,16 +41,16 @@ const textureSize = { x: 1, y: 1 };
 
 const material = new THREE.ShaderMaterial({
   uniforms: {
-    uTexture: { value: null },
-    uResolution: { value: new THREE.Vector2(w, h) },
-    uTextureSize: { value: new THREE.Vector2(textureSize.x, textureSize.y) },
-    uMouse: { value: new THREE.Vector2(mouse.x, mouse.y) },
-    uParallaxStrength: { value: config.parallaxStrength },
-    uDistortionMultiplier: { value: config.distortionMultiplier },
-    uGlassStrength: { value: config.glassStrength },
-    ustripesFrequency: { value: config.stripesFrequency },
-    uglassSmoothness: { value: config.glassSmoothness },
-    uEdgePadding: { value: config.edgePadding },
+    uTexture:             { value: null },
+    uResolution:          { value: new THREE.Vector2(W(), H()) },
+    uTextureSize:         { value: new THREE.Vector2(textureSize.x, textureSize.y) },
+    uMouse:               { value: new THREE.Vector2(mouse.x, mouse.y) },
+    uParallaxStrength:    { value: config.parallaxStrength },
+    uDistortionMultiplier:{ value: config.distortionMultiplier },
+    uGlassStrength:       { value: config.glassStrength },
+    ustripesFrequency:    { value: config.stripesFrequency },
+    uglassSmoothness:     { value: config.glassSmoothness },
+    uEdgePadding:         { value: config.edgePadding },
   },
   vertexShader,
   fragmentShader,
@@ -69,7 +66,7 @@ function loadImageFromElement() {
     return;
   }
   const texture = new THREE.Texture(imageElement);
-  textureSize.x = imageElement.naturalWidth || imageElement.width;
+  textureSize.x = imageElement.naturalWidth  || imageElement.width;
   textureSize.y = imageElement.naturalHeight || imageElement.height;
   texture.needsUpdate = true;
   material.uniforms.uTexture.value = texture;
@@ -82,19 +79,18 @@ if (imageElement.complete) {
   imageElement.onload = loadImageFromElement;
 }
 
-/* ── Souris relative au conteneur ── */
+/* ── Souris relative au .hero ── */
 container.addEventListener("mousemove", (e) => {
   const rect = container.getBoundingClientRect();
   targetMouse.x = (e.clientX - rect.left) / rect.width;
   targetMouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
 });
 
-/* ── Resize basé sur le conteneur ── */
+/* ── Resize : tout basé sur .hero ── */
 window.addEventListener("resize", () => {
-  const { w, h } = getSize();
-  renderer.setSize(w, h);
+  renderer.setSize(W(), H());
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  material.uniforms.uResolution.value.set(w, h);
+  material.uniforms.uResolution.value.set(W(), H());
 });
 
 function animate() {
