@@ -139,7 +139,7 @@ a, p {
 /* ── MOBILE PETIT (iPhone SE) ── */
 @media (max-width: 380px) {
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     letter-spacing: -0.02rem;
     padding: 1rem;
   }
