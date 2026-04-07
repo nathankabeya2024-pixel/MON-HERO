@@ -1,11 +1,12 @@
-export const vertexShader = 
+export const vertexShader = `
   varying vec2 vUv;
   void main() {
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-;
-export const fragmentShader = 
+`;
+
+export const fragmentShader = `
   uniform sampler2D uTexture;
   uniform vec2 uResolution;
   uniform vec2 uTextureSize;
@@ -17,6 +18,7 @@ export const fragmentShader =
   uniform float uglassSmoothness;
   uniform float uEdgePadding;
   varying vec2 vUv;
+
   vec2 getCoverUV(vec2 uv, vec2 textureSize) {
     if (textureSize.x < 1.0 || textureSize.y < 1.0) return uv;
     float texAspect    = textureSize.x / textureSize.y;
@@ -29,10 +31,12 @@ export const fragmentShader =
     }
     return (uv - 0.5) * scale + 0.5;
   }
+
   float displacement(float x, float num_stripes, float strength) {
     float modulus = 1.0 / num_stripes;
     return mod(x, modulus) * strength;
   }
+
   float fractalGlass(float x) {
     float d = 0.0;
     for (int i = -5; i <= 5; i++) {
@@ -40,11 +44,13 @@ export const fragmentShader =
     }
     return x + d / 11.0;
   }
+
   float smoothEdge(float x, float padding) {
     if (x < padding) return smoothstep(0.0, padding, x);
     if (x > 1.0 - padding) return smoothstep(1.0, 1.0 - padding, x);
     return 1.0;
   }
+
   void main() {
     vec2 uv = vUv;
     float originalX = uv.x;
@@ -63,4 +69,4 @@ export const fragmentShader =
     coverUV = clamp(coverUV, 0.0, 1.0);
     gl_FragColor = texture2D(uTexture, coverUV);
   }
-;
+`;
