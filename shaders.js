@@ -27,7 +27,7 @@ export const fragmentShader = `
     } else {
       scale = vec2(screenAspect / texAspect, 1.0);
     }
-    scale *= 1.1;
+    scale *= 1.3;
     return (uv - 0.5) * scale + 0.5;
   }
   float displacement(float x, float num_stripes, float strength) {
