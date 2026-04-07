@@ -103,7 +103,7 @@ a, p {
   }
 
   .hero {
-    height: 98dvh;
+    height: 100dvh;
     min-height: 500px;
     max-height: 750px;
   }
@@ -125,7 +125,7 @@ a, p {
   }
 
   .hero {
-    height: 98dvh;
+    height: 100dvh;
     min-height: 420px;
     max-height: 700px;
   }
@@ -147,7 +147,7 @@ a, p {
   }
 
   .hero {
-    height: 98dvh;
+    height: 100dvh;
     min-height: 360px;
     max-height: 650px;
   }
