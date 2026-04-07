@@ -36,6 +36,15 @@ a, p {
   overflow: hidden;
 }
 
+/* Three.js canvas — cover complet */
+.hero canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .hero img#glassTexture {
   display: none;
 }
@@ -48,6 +57,7 @@ a, p {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  z-index: 2;
 }
 
 .hero-content h1 {
@@ -66,9 +76,7 @@ a, p {
     gap: 1rem;
   }
 
-  .hero-content h1 {
-    width: 100%;
-  }
+  .hero-content h1 { width: 100%; }
 
   .hero::before {
     content: '';
@@ -83,9 +91,7 @@ a, p {
     pointer-events: none;
   }
 
-  .hero-content {
-    z-index: 2;
-  }
+  .hero-content { z-index: 2; }
 }
 
 /* ── MOBILE LARGE ── */
@@ -107,9 +113,7 @@ a, p {
     padding-bottom: 1.5rem !important;
   }
 
-  a, p {
-    font-size: 0.8rem;
-  }
+  a, p { font-size: 0.8rem; }
 }
 
 /* ── MOBILE MOYEN ── */
@@ -131,9 +135,7 @@ a, p {
     padding-bottom: 1.2rem !important;
   }
 
-  a, p {
-    font-size: 0.75rem;
-  }
+  a, p { font-size: 0.75rem; }
 }
 
 /* ── MOBILE PETIT (iPhone SE) ── */
