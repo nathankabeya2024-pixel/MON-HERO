@@ -119,7 +119,7 @@ a, p {
   }
 
   .hero {
-    height: 420px;
+    height: 100svh;
   }
 
   .hero-content h1 {
@@ -141,7 +141,7 @@ a, p {
   }
 
   .hero {
-    height: 360px;
+    height: 100svh;
   }
 
   .hero-content h1 {
