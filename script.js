@@ -2,10 +2,9 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
 import { vertexShader, fragmentShader } from "/shaders.js";
 
 const config = {
-  lerpFactor:        0.035,
-  parallaxStrength:  0.1,
-  blurStrength:      16.0,  // intensité du blur
-  snowFadeSpeed:     0.05,  // vitesse de disparition de la neige
+  lerpFactor:       0.035,
+  parallaxStrength: 0.1,
+  blurStrength:     2.0,
 };
 
 const container    = document.querySelector(".hero");
@@ -42,8 +41,6 @@ const material = new THREE.ShaderMaterial({
     uMouse:            { value: new THREE.Vector2(0.5, 0.5) },
     uParallaxStrength: { value: config.parallaxStrength },
     uBlurStrength:     { value: config.blurStrength },
-    uSnowIntensity:    { value: 0.0 },
-    uTime:             { value: 0.0 },
   },
   vertexShader,
   fragmentShader,
@@ -64,18 +61,10 @@ function loadImageFromElement() {
 }
 imageElement.complete ? loadImageFromElement() : (imageElement.onload = loadImageFromElement);
 
-// Neige au mouvement de souris
-let snowTimeout;
-let targetSnow = 0.0;
-
 container.addEventListener("mousemove", (e) => {
   const rect = container.getBoundingClientRect();
   targetMouse.x = (e.clientX - rect.left) / rect.width;
   targetMouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-
-  targetSnow = 1.0;
-  clearTimeout(snowTimeout);
-  snowTimeout = setTimeout(() => { targetSnow = 0.0; }, 300);
 });
 
 window.addEventListener("resize", () => {
@@ -86,17 +75,9 @@ window.addEventListener("resize", () => {
 
 function animate() {
   requestAnimationFrame(animate);
-
   mouse.x = lerp(mouse.x, targetMouse.x, config.lerpFactor);
   mouse.y = lerp(mouse.y, targetMouse.y, config.lerpFactor);
   material.uniforms.uMouse.value.set(mouse.x, mouse.y);
-
-  // Fondu progressif de la neige
-  const snow = material.uniforms.uSnowIntensity.value;
-  material.uniforms.uSnowIntensity.value = lerp(snow, targetSnow, config.snowFadeSpeed);
-
-  material.uniforms.uTime.value += 0.016;
-
   renderer.render(scene, camera);
 }
 animate();
