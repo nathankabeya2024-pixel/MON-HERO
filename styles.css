@@ -115,7 +115,7 @@ a, p {
 /* ── MOBILE MOYEN ── */
 @media (max-width: 480px) {
   h1 {
-    font-size: 1.2rem;
+    font-size: 2rem;
     letter-spacing: -0.04rem;
     padding: 1.2rem;
   }
@@ -139,7 +139,7 @@ a, p {
 /* ── MOBILE PETIT (iPhone SE) ── */
 @media (max-width: 380px) {
   h1 {
-    font-size: 1rem;
+    font-size: 2rem;
     letter-spacing: -0.02rem;
     padding: 1rem;
   }
