@@ -1,16 +1,10 @@
+<script type="module">
 import gsap from "https://esm.sh/gsap@3.12.5";
 import { ScrollTrigger } from "https://esm.sh/gsap@3.12.5/ScrollTrigger";
-import Lenis from "https://esm.sh/lenis@1.1.14";
 
 gsap.registerPlugin(ScrollTrigger);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const lenis = new Lenis();
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
+window.addEventListener("load", () => {
 
   const cards = document.querySelectorAll(".sticky-cards .card");
   const totalCards = cards.length;
@@ -35,10 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
-      const activeIndex = Math.min(
-        Math.floor(progress / segmentSize),
-        totalCards - 1,
-      );
+      const activeIndex = Math.min(Math.floor(progress / segmentSize), totalCards - 1);
       const segProgress = (progress - activeIndex * segmentSize) / segmentSize;
 
       cards.forEach((card, i) => {
@@ -52,15 +43,16 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         } else {
           const behindIndex = i - activeIndex;
-          const currentYOffset = (behindIndex - segProgress) * cardYOffset;
-          const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep;
           gsap.set(card, {
-            yPercent: -50 + currentYOffset,
+            yPercent: -50 + (behindIndex - segProgress) * cardYOffset,
             rotationX: 0,
-            scale: currentScale,
+            scale: 1 - (behindIndex - segProgress) * cardScaleStep,
           });
         }
       });
     },
   });
+
+  ScrollTrigger.refresh();
 });
+</script>
