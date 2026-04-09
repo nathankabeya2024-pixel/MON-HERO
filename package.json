@@ -1,5 +1,5 @@
 {
-  "name": "codegrid-fractal-glass-effect",
+  "name": "codegrid-brandappart-sticky-cards",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "three": "^0.181.0",
-    "vite": "^7.2.2"
+    "gsap": "^3.14.2",
+    "lenis": "^1.3.17",
+    "vite": "^7.3.1"
   }
 }
