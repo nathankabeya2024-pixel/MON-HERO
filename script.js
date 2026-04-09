@@ -1,8 +1,14 @@
 <script type="module">
 import gsap from "https://esm.sh/gsap@3.12.5";
 import { ScrollTrigger } from "https://esm.sh/gsap@3.12.5/ScrollTrigger";
+import Lenis from "https://esm.sh/lenis@1.1.14";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const lenis = new Lenis();
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
 
 const cards = document.querySelectorAll(".sticky-cards .card");
 const totalCards = cards.length;
@@ -50,4 +56,6 @@ ScrollTrigger.create({
     });
   },
 });
+
+ScrollTrigger.refresh();
 </script>
