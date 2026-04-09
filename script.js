@@ -1,6 +1,6 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import gsap from "https://esm.sh/gsap@3.12.5";
+import { ScrollTrigger } from "https://esm.sh/gsap@3.12.5/ScrollTrigger";
+import Lenis from "https://esm.sh/lenis@1.1.14";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".sticky-cards .card");
   const totalCards = cards.length;
   const segmentSize = 1 / totalCards;
-
   const cardYOffset = 1;
   const cardScaleStep = 0.075;
 
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
-
       const activeIndex = Math.min(
         Math.floor(progress / segmentSize),
         totalCards - 1,
@@ -45,10 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cards.forEach((card, i) => {
         if (i < activeIndex) {
-          gsap.set(card, {
-            yPercent: -250,
-            rotationX: 35,
-          });
+          gsap.set(card, { yPercent: -250, rotationX: 35 });
         } else if (i === activeIndex) {
           gsap.set(card, {
             yPercent: gsap.utils.interpolate(-50, -200, segProgress),
@@ -59,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const behindIndex = i - activeIndex;
           const currentYOffset = (behindIndex - segProgress) * cardYOffset;
           const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep;
-
           gsap.set(card, {
             yPercent: -50 + currentYOffset,
             rotationX: 0,
